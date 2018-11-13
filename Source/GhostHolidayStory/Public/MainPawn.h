@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Components/TimelineComponent.h"
 #include "MainPawn.generated.h"
 
 class AGhostHolidayStoryGameModeBase;
+class APlayerCameraManager;
 
 UCLASS()
 class GHOSTHOLIDAYSTORY_API AMainPawn : public APawn
@@ -28,9 +30,19 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	
-public:
+	//进入放映室
+	void EnterStudio();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void EnterStudio_BPEvent();
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=Default)
+	APlayerCameraManager* currentCamera;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Default)
 	AGhostHolidayStoryGameModeBase* mainGameMode;
+private:
+
 
 	//修改玩家输入:在放映室外，等待任意键
 	void ChangePlayerInput_Outdoor();

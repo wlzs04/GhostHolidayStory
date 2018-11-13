@@ -8,6 +8,11 @@
 #include "EngineUtils.h"
 #include "GameFramework/Actor.h"
 
+#include "Runtime/XmlParser/Public/XmlParser.h"
+#include "Runtime/XmlParser/Public/FastXml.h" 
+#include "XmlParser/Public/XmlFile.h"
+#include "Paths.h"
+
 AGhostHolidayStoryGameModeBase::AGhostHolidayStoryGameModeBase()
 {
 	this->GameStateClass = AMainGameState::StaticClass();
@@ -20,6 +25,8 @@ void AGhostHolidayStoryGameModeBase::StartPlay()
 	mainGameState = Cast<AMainGameState>(this->GameState);
 	
 	mainPawn = Cast<AMainPawn>(GetWorld()->GetFirstPlayerController()->GetPawn());
+
+	LoadGreetingsFromXML();
 }
 
 void AGhostHolidayStoryGameModeBase::EnterStudio()
@@ -27,8 +34,7 @@ void AGhostHolidayStoryGameModeBase::EnterStudio()
 	if (mainGameState->GetMainGameStateEnum() == MainGameStateEnum::Outdoor)
 	{
 		mainGameState->SetMainGameStateEnum(MainGameStateEnum::ChangeConfig);
-		GetActorChildByName( GetActorByName(TEXT("Wall_Sprite4")), TEXT("Door_Sprite"))->SetActorRelativeRotation(FRotator(0,-90,0));
-		mainPawn->ChangePlayerInput_ChangeConfig();
+		mainPawn->EnterStudio();
 	}
 }
 
@@ -66,5 +72,79 @@ AActor* AGhostHolidayStoryGameModeBase::GetActorChildByName(AActor* baseActor,FS
 		}
 	}
 	return nullptr;
+}
+
+FTalkGroup AGhostHolidayStoryGameModeBase::GetRandomGreetingsTalkGroup()
+{
+	int index = (int)(((float)FMath::Rand() / RAND_MAX)*greetingsList.Num());
+	return greetingsList[index];
+}
+
+FTalkGroup AGhostHolidayStoryGameModeBase::GetRandomClosingsTalkGroup()
+{
+	int index = (int)(((float)FMath::Rand() / RAND_MAX)*closingsList.Num());
+	return closingsList[index];
+}
+
+void AGhostHolidayStoryGameModeBase::LoadGreetingsFromXML()
+{
+	greetingsList.Empty();
+	FString realGreetingPath = FPaths::ProjectContentDir() + greetingsPath;
+	FXmlFile* xmlFile = new FXmlFile(realGreetingPath);
+	FXmlNode* rootNode = xmlFile->GetRootNode();
+
+	const TArray<FXmlNode*> nodeList = rootNode->GetChildrenNodes();
+
+	for (FXmlNode* groupNode : nodeList)
+	{
+		FString imagePath = groupNode->GetAttribute(TEXT("image"));
+		FTalkGroup talkGroup;
+
+		const TArray<FXmlNode*> itemList = groupNode->GetChildrenNodes();
+
+		FXmlNode* node0 = itemList[0];
+		FString tempText0 = node0->GetAttribute(TEXT("text"));
+		FString tempAudio0 = node0->GetAttribute(TEXT("audio"));
+		talkGroup.talk0.text = tempText0;
+		talkGroup.talk0.audio = tempAudio0;
+
+		FXmlNode* node1 = itemList[1];
+		FString tempText1 = node1->GetAttribute(TEXT("text"));
+		FString tempAudio1 = node1->GetAttribute(TEXT("audio"));
+		talkGroup.talk1.text = tempText1;
+		talkGroup.talk1.audio = tempAudio1;
+		greetingsList.Add(talkGroup);
+	}
+}
+
+void AGhostHolidayStoryGameModeBase::LoadClosingsFromXML()
+{
+	closingsList.Empty();
+	FXmlFile* xmlFile = new FXmlFile(FPaths::ProjectContentDir() + closingsPath);
+	FXmlNode* rootNode = xmlFile->GetRootNode();
+
+	const TArray<FXmlNode*> nodeList = rootNode->GetChildrenNodes();
+	
+	for (FXmlNode* groupNode : nodeList)
+	{
+		FString imagePath = groupNode->GetAttribute(TEXT("image"));
+		FTalkGroup talkGroup;
+
+		const TArray<FXmlNode*> itemList = groupNode->GetChildrenNodes();
+
+		FXmlNode* node0 = itemList[0];
+		FString tempText0 = node0->GetAttribute(TEXT("text"));
+		FString tempAudio0 = node0->GetAttribute(TEXT("audio"));
+		talkGroup.talk0.text = tempText0;
+		talkGroup.talk0.audio = tempAudio0;
+
+		FXmlNode* node1 = itemList[1];
+		FString tempText1 = node1->GetAttribute(TEXT("text"));
+		FString tempAudio1 = node1->GetAttribute(TEXT("audio"));
+		talkGroup.talk1.text = tempText1;
+		talkGroup.talk1.audio = tempAudio1;
+
+		closingsList.Add(talkGroup);
+	}
 }
 

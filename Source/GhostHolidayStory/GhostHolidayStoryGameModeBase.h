@@ -4,11 +4,52 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Array.h"
+#include "Map.h"
 
 #include "GhostHolidayStoryGameModeBase.generated.h"
 
 class AMainGameState;
 class AMainPawn;
+
+USTRUCT(BlueprintType)
+struct FTextAndAudio
+{
+	GENERATED_BODY()
+
+	FTextAndAudio()
+	{
+		text = TEXT("");
+		audio = TEXT("");
+	}
+
+	FTextAndAudio(FString textValue, FString audioValue)
+	{
+		text = textValue;
+		audio = audioValue;
+	}
+
+	UPROPERTY(BlueprintReadOnly)
+	FString text;
+
+	UPROPERTY(BlueprintReadOnly)
+	FString audio;
+};
+
+USTRUCT(BlueprintType)
+struct FTalkGroup
+{
+	GENERATED_BODY()
+
+	FTalkGroup() {}
+
+	UPROPERTY(BlueprintReadOnly)
+	FTextAndAudio talk0;
+
+	UPROPERTY(BlueprintReadOnly)
+	FTextAndAudio talk1;
+};
+
 /**
  * 
  */
@@ -25,11 +66,26 @@ public:
 
 	//通过名称获得actor
 	AActor* GetActorByName(FString actorName);
-
 	AActor* GetActorChildByName(AActor* baseActor,FString actorName);
-	
+
+	UFUNCTION(BlueprintCallable)
+	FTalkGroup GetRandomGreetingsTalkGroup();
+
+	UFUNCTION(BlueprintCallable)
+	FTalkGroup GetRandomClosingsTalkGroup();
 private:
+	//读取问候语
+	void LoadGreetingsFromXML();
+
+	//读取结束语
+	void LoadClosingsFromXML();
 
 	AMainGameState* mainGameState;
 	AMainPawn* mainPawn;
+
+	FString greetingsPath = TEXT("GameContent/Data/Common/Greetings.xml");
+	FString closingsPath = TEXT("GameContent/Data/Common/Closings.xml");
+
+	TArray<FTalkGroup> greetingsList;
+	TArray<FTalkGroup> closingsList;
 };

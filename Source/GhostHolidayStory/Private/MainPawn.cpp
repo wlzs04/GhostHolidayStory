@@ -20,6 +20,8 @@ void AMainPawn::BeginPlay()
 	mainGameMode =Cast<AGhostHolidayStoryGameModeBase>(GetWorld()->GetAuthGameMode()) ;
 
 	ChangePlayerInput_Outdoor();
+
+	currentCamera = GetWorld()->GetFirstPlayerController()->PlayerCameraManager;
 }
 
 // Called every frame
@@ -32,6 +34,12 @@ void AMainPawn::Tick(float DeltaTime)
 void AMainPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	APawn::SetupPlayerInputComponent(PlayerInputComponent);
+}
+
+void AMainPawn::EnterStudio()
+{
+	ChangePlayerInput_ChangeConfig();
+	EnterStudio_BPEvent();
 }
 
 void AMainPawn::ChangePlayerInput_Outdoor()
