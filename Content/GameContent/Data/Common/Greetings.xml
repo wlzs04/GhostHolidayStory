@@ -1,18 +1,18 @@
 <Greetings>
-	<Group image="asdf">
-		<Item text="都在吗？" audio="asdf"/>
-		<Item text="嗯！" audio="asdf"/>
+	<Group image="Greeting1.png">
+		<Item text="都在吗？" audio="greeting1"/>
+		<Item text="嗯！" audio="greeting2"/>
 	</Group>
-	<Group image="asdf">
-		<Item text="呦，来得这么早！" audio="asdf"/>
-		<Item text="哈？敢笑我？" audio="asdf"/>
+	<Group image="Greeting2.png">
+		<Item text="呦，来得真早！" audio="greeting3"/>
+		<Item text="哈？敢笑我？" audio="greeting4"/>
 	</Group>
-	<Group image="asdf">
-		<Item text="就等你了。" audio="asdf"/>
-		<Item text="那就开始吧！" audio="asdf"/>
+	<Group image="Greeting1.png">
+		<Item text="就差你了。" audio="greeting5"/>
+		<Item text="久等了！" audio="greeting6"/>
 	</Group>
-	<Group image="asdf">
-		<Item text="这么晚！" audio="asdf"/>
-		<Item text="我很忙。" audio="asdf"/>
+	<Group image="Greeting2.png">
+		<Item text="已经准备好了。" audio="greeting7"/>
+		<Item text="那就开始吧！" audio="greeting8"/>
 	</Group>
 </Greetings>

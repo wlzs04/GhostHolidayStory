@@ -86,11 +86,20 @@ FTalkGroup AGhostHolidayStoryGameModeBase::GetRandomClosingsTalkGroup()
 	return closingsList[index];
 }
 
+FString AGhostHolidayStoryGameModeBase::GetCommonPath()
+{
+	return FPaths::ProjectContentDir() + relativeCommonPath;
+}
+
+FString AGhostHolidayStoryGameModeBase::GetRelativeCommonPath()
+{
+	return relativeCommonPath;
+}
+
 void AGhostHolidayStoryGameModeBase::LoadGreetingsFromXML()
 {
 	greetingsList.Empty();
-	FString realGreetingPath = FPaths::ProjectContentDir() + greetingsPath;
-	FXmlFile* xmlFile = new FXmlFile(realGreetingPath);
+	FXmlFile* xmlFile = new FXmlFile(GetCommonPath() + TEXT("Greetings.xml"));
 	FXmlNode* rootNode = xmlFile->GetRootNode();
 
 	const TArray<FXmlNode*> nodeList = rootNode->GetChildrenNodes();
@@ -98,7 +107,9 @@ void AGhostHolidayStoryGameModeBase::LoadGreetingsFromXML()
 	for (FXmlNode* groupNode : nodeList)
 	{
 		FString imagePath = groupNode->GetAttribute(TEXT("image"));
+
 		FTalkGroup talkGroup;
+		talkGroup.imagePath = imagePath;
 
 		const TArray<FXmlNode*> itemList = groupNode->GetChildrenNodes();
 
@@ -120,7 +131,7 @@ void AGhostHolidayStoryGameModeBase::LoadGreetingsFromXML()
 void AGhostHolidayStoryGameModeBase::LoadClosingsFromXML()
 {
 	closingsList.Empty();
-	FXmlFile* xmlFile = new FXmlFile(FPaths::ProjectContentDir() + closingsPath);
+	FXmlFile* xmlFile = new FXmlFile(GetCommonPath() +TEXT("Closings.xml"));
 	FXmlNode* rootNode = xmlFile->GetRootNode();
 
 	const TArray<FXmlNode*> nodeList = rootNode->GetChildrenNodes();
@@ -128,7 +139,9 @@ void AGhostHolidayStoryGameModeBase::LoadClosingsFromXML()
 	for (FXmlNode* groupNode : nodeList)
 	{
 		FString imagePath = groupNode->GetAttribute(TEXT("image"));
+
 		FTalkGroup talkGroup;
+		talkGroup.imagePath = imagePath;
 
 		const TArray<FXmlNode*> itemList = groupNode->GetChildrenNodes();
 

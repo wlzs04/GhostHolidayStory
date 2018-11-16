@@ -5,10 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Components/TimelineComponent.h"
+#include "MainGameInstance.h"
 #include "MainPawn.generated.h"
 
 class AGhostHolidayStoryGameModeBase;
 class APlayerCameraManager;
+class USoundBase;
 
 UCLASS()
 class GHOSTHOLIDAYSTORY_API AMainPawn : public APawn
@@ -36,13 +38,18 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void EnterStudio_BPEvent();
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category=Default)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	APlayerCameraManager* currentCamera;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Default)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	AGhostHolidayStoryGameModeBase* mainGameMode;
-private:
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UMainGameInstance* mainGameInstance;
+
+	//UFUNCTION(BlueprintCallable)
+	//USoundBase* LoadAudio(FString audioName);
+private:
 
 	//修改玩家输入:在放映室外，等待任意键
 	void ChangePlayerInput_Outdoor();

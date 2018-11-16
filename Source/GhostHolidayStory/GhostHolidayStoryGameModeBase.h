@@ -44,6 +44,9 @@ struct FTalkGroup
 	FTalkGroup() {}
 
 	UPROPERTY(BlueprintReadOnly)
+	FString imagePath;
+
+	UPROPERTY(BlueprintReadOnly)
 	FTextAndAudio talk0;
 
 	UPROPERTY(BlueprintReadOnly)
@@ -73,6 +76,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FTalkGroup GetRandomClosingsTalkGroup();
+
+	UFUNCTION(BlueprintCallable)
+	FString GetCommonPath();
+
+	UFUNCTION(BlueprintCallable)
+	FString GetRelativeCommonPath();
 private:
 	//读取问候语
 	void LoadGreetingsFromXML();
@@ -83,8 +92,7 @@ private:
 	AMainGameState* mainGameState;
 	AMainPawn* mainPawn;
 
-	FString greetingsPath = TEXT("GameContent/Data/Common/Greetings.xml");
-	FString closingsPath = TEXT("GameContent/Data/Common/Closings.xml");
+	FString relativeCommonPath = TEXT("GameContent/Data/Common/");
 
 	TArray<FTalkGroup> greetingsList;
 	TArray<FTalkGroup> closingsList;
