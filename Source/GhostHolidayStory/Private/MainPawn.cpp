@@ -10,6 +10,7 @@
 //#include "Sound/SoundWave.h"
 #include "Runtime/Engine/Classes/Sound/SoundWave.h"
 #include "FileHelper.h"
+#include "GameFramework/PlayerController.h"
 
 
 // Sets default values
@@ -25,6 +26,7 @@ void AMainPawn::BeginPlay()
 	APawn::BeginPlay();
 	mainGameMode =Cast<AGhostHolidayStoryGameModeBase>(GetWorld()->GetAuthGameMode()) ;
 	mainGameInstance = Cast<UMainGameInstance>(GetGameInstance());
+	mainController = GetWorld()->GetFirstPlayerController();
 	ChangePlayerInput_Outdoor();
 
 	currentCamera = GetWorld()->GetFirstPlayerController()->PlayerCameraManager;
@@ -44,24 +46,40 @@ void AMainPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AMainPawn::EnterStudio()
 {
+	mainController->DisableInput(nullptr);
 	ChangePlayerInput_ChangeConfig();
 	EnterStudio_BPEvent();
+}
+
+void AMainPawn::EnterStudio_Finish()
+{
+	mainGameMode->ChangeConfig();
+}
+
+void AMainPawn::ChangeConfig()
+{
+	mainController->EnableInput(nullptr);
+	//ChangePlayerInput_ChangeConfig();
+}
+
+void AMainPawn::ChangeConfig_Finish()
+{
 }
 
 void AMainPawn::ChangePlayerInput_Outdoor()
 {
 	InputComponent->ClearActionBindings();
+	InputComponent->AxisBindings.Reset();
 	InputComponent->BindAction("AnyKey", IE_Pressed, mainGameMode, &AGhostHolidayStoryGameModeBase::EnterStudio);
 }
 
 void AMainPawn::ChangePlayerInput_ChangeConfig()
 {
 	InputComponent->ClearActionBindings();
-	InputComponent->BindAction("Finish", IE_Pressed, this, &AMainPawn::ChangeConfigFinish);
+	InputComponent->AxisBindings.Reset();
+	InputComponent->BindAction("Hold", IE_Pressed, this, &AMainPawn::ChangeConfigEvent_Hold);
+	InputComponent->BindAction("Hold", IE_Released, this, &AMainPawn::ChangeConfigEvent_Release);
+	InputComponent->BindAction("Finish", IE_Pressed, this, &AMainPawn::ChangeConfigEvent_Finish);
+	InputComponent->BindAxis("Right", this, &AMainPawn::ChangeConfigEvent_Right);
+	InputComponent->BindAxis("Down", this, &AMainPawn::ChangeConfigEvent_Down);
 }
-
-void AMainPawn::ChangeConfigFinish()
-{
-
-}
-

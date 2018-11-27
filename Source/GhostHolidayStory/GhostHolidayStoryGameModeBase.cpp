@@ -33,8 +33,16 @@ void AGhostHolidayStoryGameModeBase::EnterStudio()
 {
 	if (mainGameState->GetMainGameStateEnum() == MainGameStateEnum::Outdoor)
 	{
-		mainGameState->SetMainGameStateEnum(MainGameStateEnum::ChangeConfig);
 		mainPawn->EnterStudio();
+	}
+}
+
+void AGhostHolidayStoryGameModeBase::ChangeConfig()
+{
+	if (mainGameState->GetMainGameStateEnum() == MainGameStateEnum::Outdoor)
+	{
+		mainGameState->SetMainGameStateEnum(MainGameStateEnum::ChangeConfig);
+		mainPawn->ChangeConfig();
 	}
 }
 

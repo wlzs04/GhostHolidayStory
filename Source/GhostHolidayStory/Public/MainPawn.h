@@ -11,6 +11,7 @@
 class AGhostHolidayStoryGameModeBase;
 class APlayerCameraManager;
 class USoundBase;
+class APlayerController;
 
 UCLASS()
 class GHOSTHOLIDAYSTORY_API AMainPawn : public APawn
@@ -35,8 +36,24 @@ public:
 	//进入放映室
 	void EnterStudio();
 
+	//进入放映室的蓝图事件
 	UFUNCTION(BlueprintImplementableEvent)
 	void EnterStudio_BPEvent();
+
+	//完成进入放映室
+	UFUNCTION(BlueprintCallable)
+	void EnterStudio_Finish();
+
+	//修改配置
+	void ChangeConfig();
+
+	//修改配置的蓝图事件
+	UFUNCTION(BlueprintImplementableEvent)
+	void ChangeConfig_BPEvent();
+
+	//完成修改配置
+	UFUNCTION(BlueprintCallable)
+	void ChangeConfig_Finish();
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	APlayerCameraManager* currentCamera;
@@ -46,6 +63,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	UMainGameInstance* mainGameInstance;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	APlayerController* mainController;
 
 	//UFUNCTION(BlueprintCallable)
 	//USoundBase* LoadAudio(FString audioName);
@@ -57,6 +77,14 @@ private:
 	//修改玩家输入:进入放映室，进行更改设置
 	void ChangePlayerInput_ChangeConfig();
 	
-
-	void ChangeConfigFinish();
+	//更改配置事件:向右
+	//void ChangeConfigEvent_Right(float value);
+	//更改配置事件:向下
+	//void ChangeConfigEvent_Down(float value);
+	//更改配置事件:按住
+	//void ChangeConfigEvent_Hold();
+	//更改配置事件:释放
+	//void ChangeConfigEvent_Release();
+	//更改配置事件:完成
+	//void ChangeConfigEvent_Finish();
 };

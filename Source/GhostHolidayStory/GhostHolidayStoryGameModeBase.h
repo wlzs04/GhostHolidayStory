@@ -67,6 +67,9 @@ public:
 	//进入放映室
 	void EnterStudio();
 
+	//设置配置
+	void ChangeConfig();
+
 	//通过名称获得actor
 	AActor* GetActorByName(FString actorName);
 	AActor* GetActorChildByName(AActor* baseActor,FString actorName);
