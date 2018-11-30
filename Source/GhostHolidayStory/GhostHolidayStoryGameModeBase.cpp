@@ -7,6 +7,7 @@
 #include "Array.h"
 #include "EngineUtils.h"
 #include "GameFramework/Actor.h"
+#include "UObject/UObjectGlobals.h"
 
 #include "Runtime/XmlParser/Public/XmlParser.h"
 #include "Runtime/XmlParser/Public/FastXml.h" 
@@ -102,6 +103,20 @@ FString AGhostHolidayStoryGameModeBase::GetCommonPath()
 FString AGhostHolidayStoryGameModeBase::GetRelativeCommonPath()
 {
 	return relativeCommonPath;
+}
+
+UCommonConfig* AGhostHolidayStoryGameModeBase::GetCommonConfig()
+{
+	return commonConfig;
+}
+
+void AGhostHolidayStoryGameModeBase::LoadCommonConfig()
+{
+	if (commonConfig == nullptr)
+	{
+		commonConfig = NewObject<UCommonConfig>(this);
+		commonConfig->LoadConfig(GetCommonPath() + TEXT("Config.xml"));
+	}
 }
 
 void AGhostHolidayStoryGameModeBase::LoadGreetingsFromXML()

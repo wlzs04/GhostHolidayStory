@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "Array.h"
 #include "Map.h"
+#include "UserData/Config/CommonConfig.h"
 
 #include "GhostHolidayStoryGameModeBase.generated.h"
 
@@ -85,7 +86,13 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FString GetRelativeCommonPath();
+
+	UFUNCTION(BlueprintCallable)
+	UCommonConfig* GetCommonConfig();
 private:
+	//加载普通配置
+	void LoadCommonConfig();
+
 	//读取问候语
 	void LoadGreetingsFromXML();
 
@@ -99,4 +106,6 @@ private:
 
 	TArray<FTalkGroup> greetingsList;
 	TArray<FTalkGroup> closingsList;
+
+	UCommonConfig* commonConfig=nullptr;
 };

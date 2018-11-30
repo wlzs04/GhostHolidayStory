@@ -77,9 +77,4 @@ void AMainPawn::ChangePlayerInput_ChangeConfig()
 {
 	InputComponent->ClearActionBindings();
 	InputComponent->AxisBindings.Reset();
-	/*InputComponent->BindAction("Hold", IE_Pressed, this, &AMainPawn::ChangeConfigEvent_Hold);
-	InputComponent->BindAction("Hold", IE_Released, this, &AMainPawn::ChangeConfigEvent_Release);
-	InputComponent->BindAction("Finish", IE_Pressed, this, &AMainPawn::ChangeConfigEvent_Finish);
-	InputComponent->BindAxis("Right", this, &AMainPawn::ChangeConfigEvent_Right);
-	InputComponent->BindAxis("Down", this, &AMainPawn::ChangeConfigEvent_Down);*/
 }
