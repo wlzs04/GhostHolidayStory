@@ -71,6 +71,16 @@ public:
 	//设置配置
 	void ChangeConfig();
 
+	//退出放映室
+	void ExitStudio();
+
+	//退出游戏
+	void ExitGame();
+
+
+	//保存配置
+	void SaveCommonConfig();
+
 	//通过名称获得actor
 	AActor* GetActorByName(FString actorName);
 	AActor* GetActorChildByName(AActor* baseActor,FString actorName);
@@ -87,7 +97,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FString GetRelativeCommonPath();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintGetter)
 	UCommonConfig* GetCommonConfig();
 private:
 	//加载普通配置
@@ -107,5 +117,7 @@ private:
 	TArray<FTalkGroup> greetingsList;
 	TArray<FTalkGroup> closingsList;
 
+protected:
+	UPROPERTY(BlueprintReadWrite,EditAnywhere)
 	UCommonConfig* commonConfig=nullptr;
 };

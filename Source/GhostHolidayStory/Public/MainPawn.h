@@ -55,6 +55,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ChangeConfig_Finish();
 
+	//退出放映室
+	void ExitStudio();
+
+	//退出放映室的蓝图事件
+	UFUNCTION(BlueprintImplementableEvent)
+	void ExitStudio_BPEvent();
+
+	//完成退出放映室
+	UFUNCTION(BlueprintCallable)
+	void ExitStudio_Finish();
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	APlayerCameraManager* currentCamera;
 

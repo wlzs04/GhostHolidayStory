@@ -1,21 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Config>
-	<Volume total="1" back="1" voice="1" special="1"/>
-	<Switch enableInterlude="true" endGameAutoExit="true"/>
+	<Volume total="0.0" back="0.493858" voice="0.538303" special="1.0" />
+	<Switch enableInterlude="false" endGameAutoExit="false" />
 </Config>
-<!--
-//升级和突破属性变换由增加量改为增加后结果
-//在培养界面升级后没有给主界面刷新
-//集录界面显示顺序
-//属性总览置顶
-//所有物品缺少显示红字
-//其他位置添加tip
-//由兑换界面切换到分解界面时cell刷新
-//主界面9宫格内将卡牌从其他位置放到3号位，两个列表都会显示此卡牌
-//培养界面添加已使用
-//新光环条件
-//卡鉴界面右侧
-//lightimage
-//卡牌筛选自动隐藏
-//clipbyparent
--->
-

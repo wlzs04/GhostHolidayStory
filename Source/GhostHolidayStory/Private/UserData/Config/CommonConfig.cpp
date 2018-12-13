@@ -8,6 +8,7 @@
 
 UCommonConfig::~UCommonConfig()
 {
+	commonConfigPath = TEXT("");
 }
 
 void UCommonConfig::SetTotalVolume(float totalVolume)
@@ -74,6 +75,11 @@ void UCommonConfig::LoadConfig(FString commonConfigPath)
 {
 	this->commonConfigPath = commonConfigPath;
 	FXmlFile* xmlFile = new FXmlFile(commonConfigPath);
+	if (!xmlFile->IsValid())
+	{
+		return;
+	}
+
 	FXmlNode* rootNode = xmlFile->GetRootNode();
 
 	const TArray<FXmlNode*> nodeList = rootNode->GetChildrenNodes();
@@ -101,4 +107,49 @@ void UCommonConfig::LoadConfig(FString commonConfigPath)
 			SetEnableInterlude(FCString::ToBool(*enableInterludeString));
 		}
 	}
+	xmlFile->Clear();
+	delete xmlFile;
+}
+
+void UCommonConfig::SaveConfig()
+{
+	if (!commonConfigPath.IsEmpty())
+	{
+		FString xmlContent ;
+
+		xmlContent.Append(TEXT("<Config>\n"));
+
+		xmlContent.Append(TEXT("\t<Volume "));
+		xmlContent.Append(TEXT("total=\"") + FString::SanitizeFloat(totalVolume) + TEXT("\" "));
+		xmlContent.Append(TEXT("back=\"") + FString::SanitizeFloat(backVolume) + TEXT("\" "));
+		xmlContent.Append(TEXT("voice=\"") + FString::SanitizeFloat(voiceVolume) + TEXT("\" "));
+		xmlContent.Append(TEXT("special=\"")+ FString::SanitizeFloat(specialVolume)+TEXT("\" "));
+		xmlContent.Append(TEXT("/>\n"));
+
+		xmlContent.Append(TEXT("\t<Switch "));
+		FString enableInterludeString = enableInterlude ? TEXT("true") : TEXT("false");
+		xmlContent.Append(TEXT("enableInterlude=\"") + enableInterludeString + TEXT("\" "));
+		FString endGameAutoExitString = enableInterlude ? TEXT("true") : TEXT("false");
+		xmlContent.Append(TEXT("endGameAutoExit=\"") + endGameAutoExitString + TEXT("\" "));
+		xmlContent.Append(TEXT("/>\n"));
+
+		xmlContent.Append(TEXT("</Config>"));
+
+		FXmlFile* xmlFile = new FXmlFile(xmlContent, EConstructMethod::ConstructFromBuffer);
+
+		xmlFile->Save(commonConfigPath);
+
+		xmlFile->Clear();
+		delete xmlFile;
+	}
+}
+
+void UCommonConfig::SetMainSwitch(bool mainSwitch)
+{
+	this->mainSwitch = mainSwitch;
+}
+
+bool UCommonConfig::GetMainSwitch()
+{
+	return mainSwitch;
 }

@@ -64,6 +64,29 @@ void AMainPawn::ChangeConfig()
 
 void AMainPawn::ChangeConfig_Finish()
 {
+	mainGameMode->SaveCommonConfig();
+	
+	//判断主开关是否打开
+	if (mainGameMode->GetCommonConfig()->GetMainSwitch())
+	{
+		//打开时进入选剧本阶段
+	}
+	else
+	{
+		//关闭时进入退出阶段
+		mainGameMode->ExitStudio();
+	}
+}
+
+void AMainPawn::ExitStudio()
+{
+	mainController->DisableInput(nullptr);
+	ExitStudio_BPEvent();
+}
+
+void AMainPawn::ExitStudio_Finish()
+{
+	mainGameMode->ExitGame();
 }
 
 void AMainPawn::ChangePlayerInput_Outdoor()

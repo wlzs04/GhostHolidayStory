@@ -14,6 +14,7 @@ enum class MainGameStateEnum :uint8
 	SelectStory UMETA(DisplayName = "选择故事"),
 	SetSave UMETA(DisplayName = "设置存档"),
 	Action UMETA(DisplayName = "开始"),
+	Exit UMETA(DisplayName = "退出"),
 };
 
 /**

@@ -8,11 +8,13 @@
 #include "EngineUtils.h"
 #include "GameFramework/Actor.h"
 #include "UObject/UObjectGlobals.h"
+#include "Engine.h"
 
 #include "Runtime/XmlParser/Public/XmlParser.h"
 #include "Runtime/XmlParser/Public/FastXml.h" 
 #include "XmlParser/Public/XmlFile.h"
 #include "Paths.h"
+#include "Helper/LogHelper.h"
 
 AGhostHolidayStoryGameModeBase::AGhostHolidayStoryGameModeBase()
 {
@@ -22,12 +24,17 @@ AGhostHolidayStoryGameModeBase::AGhostHolidayStoryGameModeBase()
 
 void AGhostHolidayStoryGameModeBase::StartPlay()
 {
+	LogHelper::GetInstance()->Init(GetCommonPath() + TEXT("Log.log"));
+	LogNormalDetail(TEXT("开始游戏！"));
+
 	AGameModeBase::StartPlay();
 	mainGameState = Cast<AMainGameState>(this->GameState);
 	
 	mainPawn = Cast<AMainPawn>(GetWorld()->GetFirstPlayerController()->GetPawn());
-
+	
+	LoadCommonConfig();
 	LoadGreetingsFromXML();
+	LoadClosingsFromXML();
 }
 
 void AGhostHolidayStoryGameModeBase::EnterStudio()
@@ -45,6 +52,21 @@ void AGhostHolidayStoryGameModeBase::ChangeConfig()
 		mainGameState->SetMainGameStateEnum(MainGameStateEnum::ChangeConfig);
 		mainPawn->ChangeConfig();
 	}
+}
+
+void AGhostHolidayStoryGameModeBase::ExitStudio()
+{
+	if (mainGameState->GetMainGameStateEnum() != MainGameStateEnum::Exit)
+	{
+		mainGameState->SetMainGameStateEnum(MainGameStateEnum::Exit);
+		mainPawn->ExitStudio();
+	}
+}
+
+void AGhostHolidayStoryGameModeBase::ExitGame()
+{
+	LogNormalDetail(TEXT("退出游戏！"));
+	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit);
 }
 
 AActor* AGhostHolidayStoryGameModeBase::GetActorByName(FString actorName)
@@ -85,12 +107,20 @@ AActor* AGhostHolidayStoryGameModeBase::GetActorChildByName(AActor* baseActor,FS
 
 FTalkGroup AGhostHolidayStoryGameModeBase::GetRandomGreetingsTalkGroup()
 {
+	if (greetingsList.Num() == 0)
+	{
+		return FTalkGroup();
+	}
 	int index = (int)(((float)FMath::Rand() / RAND_MAX)*greetingsList.Num());
 	return greetingsList[index];
 }
 
 FTalkGroup AGhostHolidayStoryGameModeBase::GetRandomClosingsTalkGroup()
 {
+	if (closingsList.Num() == 0)
+	{
+		return FTalkGroup();
+	}
 	int index = (int)(((float)FMath::Rand() / RAND_MAX)*closingsList.Num());
 	return closingsList[index];
 }
@@ -119,10 +149,23 @@ void AGhostHolidayStoryGameModeBase::LoadCommonConfig()
 	}
 }
 
+void AGhostHolidayStoryGameModeBase::SaveCommonConfig()
+{
+	if (commonConfig != nullptr)
+	{
+		commonConfig->SaveConfig();
+	}
+}
+
 void AGhostHolidayStoryGameModeBase::LoadGreetingsFromXML()
 {
 	greetingsList.Empty();
 	FXmlFile* xmlFile = new FXmlFile(GetCommonPath() + TEXT("Greetings.xml"));
+	if (!xmlFile->IsValid())
+	{
+		LogHelper::LogError(TEXT("Greetings.xml文件读取失败！"));
+		return;
+	}
 	FXmlNode* rootNode = xmlFile->GetRootNode();
 
 	const TArray<FXmlNode*> nodeList = rootNode->GetChildrenNodes();
@@ -149,16 +192,22 @@ void AGhostHolidayStoryGameModeBase::LoadGreetingsFromXML()
 		talkGroup.talk1.audio = tempAudio1;
 		greetingsList.Add(talkGroup);
 	}
+	LogNormal(TEXT("Greetings加载完成！"));
 }
 
 void AGhostHolidayStoryGameModeBase::LoadClosingsFromXML()
 {
 	closingsList.Empty();
 	FXmlFile* xmlFile = new FXmlFile(GetCommonPath() +TEXT("Closings.xml"));
-	FXmlNode* rootNode = xmlFile->GetRootNode();
+	if (!xmlFile->IsValid())
+	{
+		LogHelper::LogError(TEXT("Closings.xml文件读取失败！"));
+		return;
+	}
 
+	FXmlNode* rootNode = xmlFile->GetRootNode();
 	const TArray<FXmlNode*> nodeList = rootNode->GetChildrenNodes();
-	
+
 	for (FXmlNode* groupNode : nodeList)
 	{
 		FString imagePath = groupNode->GetAttribute(TEXT("image"));
@@ -182,5 +231,6 @@ void AGhostHolidayStoryGameModeBase::LoadClosingsFromXML()
 
 		closingsList.Add(talkGroup);
 	}
+	LogNormal(TEXT("Closings加载完成！"));
 }
 

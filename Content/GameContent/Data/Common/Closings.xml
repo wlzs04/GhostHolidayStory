@@ -1,18 +1,18 @@
-<Greetings>
+<Closings>
 	<Group image="Closing1.png">
-		<Item text="下班了！" audio="下班了">
-		<Item text="哦！" audio="哦">
+		<Item text="下班了！" audio="closing1"/>
+		<Item text="哦！" audio="closing2"/>
 	</Group>
 	<Group image="Closing2.png">
-		<Item text="都这么晚了。" audio="都这么晚了">
-		<Item text="那就下次吧！" audio="那就下次吧">
+		<Item text="都这么晚了。" audio="closing3"/>
+		<Item text="那就下次吧！" audio="closing4"/>
 	</Group>
 	<Group image="Closing1.png">
-		<Item text="诸位辛苦了。" audio="诸位辛苦了">
-		<Item text="知道就好。" audio="知道就好">
+		<Item text="诸位辛苦了。" audio="closing5"/>
+		<Item text="知道就好。" audio="closing6"/>
 	</Group>
 	<Group image="Closing2.png">
-		<Item text="收工了。" audio="收工了">
-		<Item text="可以回家了。" audio="可以回家了">
+		<Item text="收工了。" audio="closing7"/>
+		<Item text="可以回家了。" audio="closing8"/>
 	</Group>
-</Greetings>
+</Closings>
