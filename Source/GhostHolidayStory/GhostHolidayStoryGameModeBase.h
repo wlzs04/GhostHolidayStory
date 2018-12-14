@@ -77,13 +77,16 @@ public:
 	//退出游戏
 	void ExitGame();
 
-
 	//保存配置
 	void SaveCommonConfig();
 
 	//通过名称获得actor
 	AActor* GetActorByName(FString actorName);
 	AActor* GetActorChildByName(AActor* baseActor,FString actorName);
+
+	//初始化声音，由蓝图实现，设置不同类型声音的大小,为保证此方法在加载配置之后调用
+	UFUNCTION(BlueprintImplementableEvent)
+	void InitSound_BPEvent();
 
 	UFUNCTION(BlueprintCallable)
 	FTalkGroup GetRandomGreetingsTalkGroup();

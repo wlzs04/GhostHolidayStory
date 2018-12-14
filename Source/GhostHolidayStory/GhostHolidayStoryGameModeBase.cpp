@@ -35,6 +35,8 @@ void AGhostHolidayStoryGameModeBase::StartPlay()
 	LoadCommonConfig();
 	LoadGreetingsFromXML();
 	LoadClosingsFromXML();
+
+	InitSound_BPEvent();
 }
 
 void AGhostHolidayStoryGameModeBase::EnterStudio()

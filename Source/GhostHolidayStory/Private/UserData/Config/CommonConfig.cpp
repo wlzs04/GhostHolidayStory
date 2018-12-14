@@ -64,6 +64,7 @@ bool UCommonConfig::GetEnableInterlude()
 void UCommonConfig::SetEndGameAutoExit(bool endGameAutoExit)
 {
 	this->endGameAutoExit = endGameAutoExit;
+	
 }
 
 bool UCommonConfig::GetEndGameAutoExit()
