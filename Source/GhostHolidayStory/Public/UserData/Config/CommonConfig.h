@@ -22,33 +22,33 @@ public:
 	void SaveConfig();
 
 	//主开关
-	UFUNCTION(BlueprintSetter)
+	UFUNCTION(BlueprintCallable)
 	void SetMainSwitch(bool mainSwitch);
-	UFUNCTION(BlueprintGetter)
+	UFUNCTION(BlueprintCallable)
 	bool GetMainSwitch();
 
 	//总音量
-	UFUNCTION(BlueprintSetter)
+	UFUNCTION(BlueprintCallable)
 	void SetTotalVolume(float totalVolume);
-	UFUNCTION(BlueprintGetter)
+	UFUNCTION(BlueprintCallable)
 	float GetTotalVolume();
 
 	//背景音量
-	UFUNCTION(BlueprintSetter)
+	UFUNCTION(BlueprintCallable)
 	void SetBackVolume(float backVolume);
-	UFUNCTION(BlueprintGetter)
+	UFUNCTION(BlueprintCallable)
 	float GetBackVolume();
 
 	//语言音量
-	UFUNCTION(BlueprintSetter)
+	UFUNCTION(BlueprintCallable)
 	void SetVoiceVolume(float voiceVolume);
-	UFUNCTION(BlueprintGetter)
+	UFUNCTION(BlueprintCallable)
 	float GetVoiceVolume();
 
 	//特殊音量
-	UFUNCTION(BlueprintSetter)
+	UFUNCTION(BlueprintCallable)
 	void SetSpecialVolume(float specialVolume);
-	UFUNCTION(BlueprintGetter)
+	UFUNCTION(BlueprintCallable)
 	float GetSpecialVolume();
 
 	//过场动画
@@ -66,23 +66,23 @@ protected:
 	FString commonConfigPath;
 
 	//主开关
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	bool mainSwitch = false;
 
 	//总音量
-	UPROPERTY(BlueprintReadWrite,EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	float totalVolume=1;
 
 	//背景音量
-	UPROPERTY(BlueprintReadWrite,EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	float backVolume = 1;
 
 	//语言音量
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	float voiceVolume = 1;
 
 	//特殊音量
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	float specialVolume = 1;
 
 	//过场动画

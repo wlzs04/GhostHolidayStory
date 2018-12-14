@@ -77,9 +77,6 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	APlayerController* mainController;
-
-	//UFUNCTION(BlueprintCallable)
-	//USoundBase* LoadAudio(FString audioName);
 private:
 
 	//修改玩家输入:在放映室外，等待任意键
@@ -87,15 +84,4 @@ private:
 
 	//修改玩家输入:进入放映室，进行更改设置
 	void ChangePlayerInput_ChangeConfig();
-	
-	//更改配置事件:向右
-	//void ChangeConfigEvent_Right(float value);
-	//更改配置事件:向下
-	//void ChangeConfigEvent_Down(float value);
-	//更改配置事件:按住
-	//void ChangeConfigEvent_Hold();
-	//更改配置事件:释放
-	//void ChangeConfigEvent_Release();
-	//更改配置事件:完成
-	//void ChangeConfigEvent_Finish();
 };
