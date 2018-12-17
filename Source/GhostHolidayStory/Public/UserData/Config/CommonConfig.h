@@ -16,9 +16,11 @@ class GHOSTHOLIDAYSTORY_API UCommonConfig:public UObject
 
 public:
 	UCommonConfig() :UObject() {};
-	~UCommonConfig();
+	~UCommonConfig() {};
 
+	//加载配置
 	void LoadConfig(FString commonConfigPath);
+	//保存配置
 	void SaveConfig();
 
 	//主开关

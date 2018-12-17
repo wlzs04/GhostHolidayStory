@@ -70,12 +70,33 @@ void AMainPawn::ChangeConfig_Finish()
 	if (mainGameMode->GetCommonConfig()->GetMainSwitch())
 	{
 		//打开时进入选剧本阶段
+		mainGameMode->SelectStory();
 	}
 	else
 	{
 		//关闭时进入退出阶段
 		mainGameMode->ExitStudio();
 	}
+}
+
+void AMainPawn::SelectStory()
+{
+	SelectStory_BPEvent();
+}
+
+void AMainPawn::SelectStory_Finish()
+{
+	mainGameMode->SetSave();
+}
+
+void AMainPawn::SetSave()
+{
+	SetSave_BPEvent();
+}
+
+void AMainPawn::SetSave_Finish()
+{
+
 }
 
 void AMainPawn::ExitStudio()

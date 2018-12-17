@@ -56,6 +56,24 @@ void AGhostHolidayStoryGameModeBase::ChangeConfig()
 	}
 }
 
+void AGhostHolidayStoryGameModeBase::SelectStory()
+{
+	if (mainGameState->GetMainGameStateEnum() == MainGameStateEnum::ChangeConfig)
+	{
+		mainGameState->SetMainGameStateEnum(MainGameStateEnum::SelectStory);
+		mainPawn->SelectStory();
+	}
+}
+
+void AGhostHolidayStoryGameModeBase::SetSave()
+{
+	if (mainGameState->GetMainGameStateEnum() == MainGameStateEnum::SelectStory)
+	{
+		mainGameState->SetMainGameStateEnum(MainGameStateEnum::SetSave);
+		mainPawn->SetSave();
+	}
+}
+
 void AGhostHolidayStoryGameModeBase::ExitStudio()
 {
 	if (mainGameState->GetMainGameStateEnum() != MainGameStateEnum::Exit)
@@ -135,6 +153,16 @@ FString AGhostHolidayStoryGameModeBase::GetCommonPath()
 FString AGhostHolidayStoryGameModeBase::GetRelativeCommonPath()
 {
 	return relativeCommonPath;
+}
+
+FString AGhostHolidayStoryGameModeBase::GetStoryPath()
+{
+	return FPaths::ProjectContentDir() + relativeStoryPath;
+}
+
+FString AGhostHolidayStoryGameModeBase::GetRelativeStoryPath()
+{
+	return relativeStoryPath;
 }
 
 UCommonConfig* AGhostHolidayStoryGameModeBase::GetCommonConfig()
@@ -234,5 +262,16 @@ void AGhostHolidayStoryGameModeBase::LoadClosingsFromXML()
 		closingsList.Add(talkGroup);
 	}
 	LogNormal(TEXT("Closings加载完成！"));
+}
+
+void AGhostHolidayStoryGameModeBase::LoadAllStory()
+{
+	TArray<FString> fileList;
+	IFileManager::Get().FindFiles(fileList, *GetStoryPath(), false, true);
+
+	for (int i = 0; i < fileList.Num(); i++)
+	{
+		
+	}
 }
 

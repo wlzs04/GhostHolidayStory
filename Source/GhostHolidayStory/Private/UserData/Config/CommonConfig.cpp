@@ -5,11 +5,7 @@
 #include "Runtime/XmlParser/Public/XmlParser.h"
 #include "Runtime/XmlParser/Public/FastXml.h" 
 #include "XmlParser/Public/XmlFile.h"
-
-UCommonConfig::~UCommonConfig()
-{
-	commonConfigPath = TEXT("");
-}
+#include "LogHelper.h"
 
 void UCommonConfig::SetTotalVolume(float totalVolume)
 {
@@ -78,6 +74,7 @@ void UCommonConfig::LoadConfig(FString commonConfigPath)
 	FXmlFile* xmlFile = new FXmlFile(commonConfigPath);
 	if (!xmlFile->IsValid())
 	{
+		LogError(TEXT("CommonConfig文件加载失败：")+commonConfigPath);
 		return;
 	}
 

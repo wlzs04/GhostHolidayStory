@@ -71,6 +71,12 @@ public:
 	//设置配置
 	void ChangeConfig();
 
+	//选择故事
+	void SelectStory();
+
+	//设置存档
+	void SetSave();
+
 	//退出放映室
 	void ExitStudio();
 
@@ -100,8 +106,19 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FString GetRelativeCommonPath();
 
-	UFUNCTION(BlueprintGetter)
+	UFUNCTION(BlueprintCallable)
+	FString GetStoryPath();
+
+	UFUNCTION(BlueprintCallable)
+	FString GetRelativeStoryPath();
+
+	UFUNCTION(BlueprintCallable)
 	UCommonConfig* GetCommonConfig();
+
+protected:
+	UPROPERTY(EditAnywhere)
+	UCommonConfig* commonConfig = nullptr;
+
 private:
 	//加载普通配置
 	void LoadCommonConfig();
@@ -112,15 +129,17 @@ private:
 	//读取结束语
 	void LoadClosingsFromXML();
 
+	//加载所有故事
+	void LoadAllStory();
+
 	AMainGameState* mainGameState;
 	AMainPawn* mainPawn;
 
 	FString relativeCommonPath = TEXT("GameContent/Data/Common/");
+	FString relativeStoryPath = TEXT("GameContent/Data/Story/");
 
 	TArray<FTalkGroup> greetingsList;
 	TArray<FTalkGroup> closingsList;
 
-protected:
-	UPROPERTY(BlueprintReadWrite,EditAnywhere)
-	UCommonConfig* commonConfig=nullptr;
+
 };

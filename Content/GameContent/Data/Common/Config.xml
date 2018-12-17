@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Config>
-	<Volume total="1.0" back="0.138304" voice="1.0" special="1.0" />
+	<Volume total="1.0" back="0.01" voice="1.0" special="1.0" />
 	<Switch enableInterlude="false" endGameAutoExit="false" />
 </Config>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Save createTime="2018-10-23 17:07:24" lastSaveTime="2018-10-23 17:07:34" playTime="9" chapterIndex="0" sectionIndex="0" sceneName="青州城外">
+  <Starring>
+    <Dynamic name="木" image="person2.png" width="100" height="200" position="433.8928,275.1531" layer="1" isBlock="true" />
+  </Starring>
+  <HaveFinishChapterAndSection />
+  <NeedExecuteOnLoadAction />
+  <ObjectItemMap />
+</Save>

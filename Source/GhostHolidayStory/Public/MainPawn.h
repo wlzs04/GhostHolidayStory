@@ -55,6 +55,28 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ChangeConfig_Finish();
 
+	//选择故事
+	void SelectStory();
+
+	//选择故事的蓝图事件
+	UFUNCTION(BlueprintImplementableEvent)
+	void SelectStory_BPEvent();
+
+	//完成选择故事
+	UFUNCTION(BlueprintCallable)
+	void SelectStory_Finish();
+
+	//设置存档
+	void SetSave();
+
+	//设置存档的蓝图事件
+	UFUNCTION(BlueprintImplementableEvent)
+	void SetSave_BPEvent();
+
+	//完成设置存档
+	UFUNCTION(BlueprintCallable)
+	void SetSave_Finish();
+
 	//退出放映室
 	void ExitStudio();
 
