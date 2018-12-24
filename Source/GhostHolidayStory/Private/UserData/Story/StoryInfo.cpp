@@ -20,6 +20,7 @@ void UStoryInfo::LoadInfo(FString infoPath)
 
 	//加载基础属性
 	{
+		name = rootNode->GetAttribute(TEXT("name"));
 		author = rootNode->GetAttribute(TEXT("author"));
 	}
 
@@ -41,6 +42,9 @@ void UStoryInfo::LoadInfo(FString infoPath)
 		{
 			description = nodeItem->GetAttribute(TEXT("description"));
 			imagePath = nodeItem->GetAttribute(TEXT("imagePath"));
+			
+
+
 		}
 		else
 		{

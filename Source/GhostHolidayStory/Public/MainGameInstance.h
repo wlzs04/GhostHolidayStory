@@ -6,7 +6,8 @@
 #include "Engine/GameInstance.h"
 #include "MainGameInstance.generated.h"
 
-class USoundBase;
+class USoundBase; 
+class UPaperSprite;
 
 /**
  * 
@@ -19,4 +20,7 @@ class GHOSTHOLIDAYSTORY_API UMainGameInstance : public UGameInstance
 public:
 	UFUNCTION(BlueprintCallable)
 	USoundBase* LoadSound(FString dictoryPath, FString audioName);
+
+	UFUNCTION(BlueprintCallable)
+	UPaperSprite* LoadSprite(FString dictoryPath, FString audioName);
 };

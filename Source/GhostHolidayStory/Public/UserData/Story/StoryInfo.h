@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class GHOSTHOLIDAYSTORY_API UStoryInfo : public UObject
 {
 	GENERATED_BODY()
@@ -39,6 +39,9 @@ public:
 	FString GetImagePath();
 
 private:
+	//名称
+	FString name;
+
 	//作者
 	FString author;
 

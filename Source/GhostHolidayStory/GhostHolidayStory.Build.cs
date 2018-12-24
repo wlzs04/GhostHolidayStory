@@ -8,7 +8,7 @@ public class GhostHolidayStory : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "XmlParser" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "XmlParser","Paper2D" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

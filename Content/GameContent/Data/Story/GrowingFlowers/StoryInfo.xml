@@ -1,4 +1,4 @@
-<StoryInfo author="wlzs04">
+<StoryInfo name="养花" author="wlzs04" onlyShowImage="true">
 	<Save maxSaveNumber="10" lastSaveIndex="1" />
-	<Preview description="本故事讲述了一个中老年单身汉的故事。" imagePath="preview.jpg"/>
+	<Preview description="本故事讲述了一个中老年单身汉的故事。" imagePath="preview_Sprite"/>
 </StoryInfo>

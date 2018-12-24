@@ -5,6 +5,8 @@
 #include "Sound/SoundBase.h"
 #include "Engine/Engine.h"
 #include "LogHelper.h"
+#include "FileManager.h"
+#include "Story/StoryInfo.h"
 
 AudioHelper::AudioHelper()
 {

@@ -61,6 +61,7 @@ void AGhostHolidayStoryGameModeBase::SelectStory()
 	if (mainGameState->GetMainGameStateEnum() == MainGameStateEnum::ChangeConfig)
 	{
 		mainGameState->SetMainGameStateEnum(MainGameStateEnum::SelectStory);
+		LoadAllStory();
 		mainPawn->SelectStory();
 	}
 }
@@ -143,6 +144,11 @@ FTalkGroup AGhostHolidayStoryGameModeBase::GetRandomClosingsTalkGroup()
 	}
 	int index = (int)(((float)FMath::Rand() / RAND_MAX)*closingsList.Num());
 	return closingsList[index];
+}
+
+TArray<UStory*> AGhostHolidayStoryGameModeBase::GetStoryList()
+{
+	return storyList;
 }
 
 FString AGhostHolidayStoryGameModeBase::GetCommonPath()
@@ -267,11 +273,20 @@ void AGhostHolidayStoryGameModeBase::LoadClosingsFromXML()
 void AGhostHolidayStoryGameModeBase::LoadAllStory()
 {
 	TArray<FString> fileList;
-	IFileManager::Get().FindFiles(fileList, *GetStoryPath(), false, true);
+	FString storyPath = GetStoryPath()+TEXT("*");;
+	IFileManager::Get().FindFiles(fileList, *storyPath, false, true);
 
+	if (fileList.Num()==0)
+	{
+		LogError(TEXT("没有读取到故事，请确保路径：") + GetStoryPath() + TEXT("中存在文件夹。"));
+		return;
+	}
 	for (int i = 0; i < fileList.Num(); i++)
 	{
-		
+		UStory* story = NewObject<UStory>(this);
+		story->SetStoryPath(GetStoryPath()+ fileList[i]);
+		story->LoadInfo();
+		storyList.Add(story);
 	}
 }
 

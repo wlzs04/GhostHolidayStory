@@ -6,6 +6,19 @@
 void UStory::SetStoryPath(FString storyPath)
 {
 	this->storyPath = storyPath;
+	int lastCharIndex = 0;
+	storyPath.FindLastChar(TEXT('/'), lastCharIndex);
+	directoryName = storyPath.Right(storyPath.Len() - lastCharIndex - 1);
+}
+
+FString UStory::GetStoryPath()
+{
+	return this->storyPath;
+}
+
+FString UStory::GetDirectoryName()
+{
+	return directoryName;
 }
 
 void UStory::LoadInfo()
@@ -16,18 +29,23 @@ void UStory::LoadInfo()
 		return;
 	}
 	storyInfo = NewObject<UStoryInfo>(this);
-	storyInfo->LoadInfo(storyPath);
+	storyInfo->LoadInfo(storyPath+TEXT("/StoryInfo.xml"));
 }
 
 void UStory::LoadStory()
 {
 	if (storyPath.IsEmpty())
 	{
-
+		LogErrorDetail(TEXT("在读取故事前，请先设置故事路径。"));
 		return;
 	}
 	if (storyInfo == nullptr)
 	{
 		LoadInfo();
 	}
+}
+
+UStoryInfo* UStory::GetStoryInfo()
+{
+	return storyInfo;
 }

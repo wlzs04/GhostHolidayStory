@@ -7,6 +7,7 @@
 #include "Array.h"
 #include "Map.h"
 #include "UserData/Config/CommonConfig.h"
+#include "UserData/Story/Story.h"
 
 #include "GhostHolidayStoryGameModeBase.generated.h"
 
@@ -101,6 +102,9 @@ public:
 	FTalkGroup GetRandomClosingsTalkGroup();
 
 	UFUNCTION(BlueprintCallable)
+	TArray<UStory*> GetStoryList();
+
+	UFUNCTION(BlueprintCallable)
 	FString GetCommonPath();
 
 	UFUNCTION(BlueprintCallable)
@@ -141,5 +145,5 @@ private:
 	TArray<FTalkGroup> greetingsList;
 	TArray<FTalkGroup> closingsList;
 
-
+	TArray<UStory*> storyList;
 };
